@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+
+	<!-- Configuración de JPA -->
+	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
+		id="transactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+		</property>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- Referencia al data source del context del servidor -->
+	<bean id="dbDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+  		<property name="jndiName">
+    		<value>java:/comp/env/datasource/komunoDS</value> 
+  		</property>
+ 	</bean>
+ 	
+ 	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dbDataSource" />
+		<property name="packagesToScan" value="co.com.silex.model.entity" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="generateDdl" value="false" />
+				<property name="showSql" value="false" />
+			</bean>
+		</property>
+		
+		<property name="jpaProperties">
+        	 <props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.connection.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<!-- <prop key="hibernate.cache.provider_class">${hibernate.cache.provider_class}</prop> -->
+				<!-- <prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop> -->
+			 	<prop key="hibernate.hbm2ddl.auto">none</prop> 
+			 	<prop key="hibernate.show_sql">true</prop>
+         	</props>
+      	</property>
+	</bean>
+	
+	
+
+	<!-- SPRING DATA -->
+	<jpa:repositories base-package="co.com.silex.model.repositories" />
+
+<!-- LO DEL TUTORIAL (volver a esto si no funciona) 
+    
+    <jee:jndi-lookup id="silexDataSource" jndi-name="datasource/komunoDS" lookup-on-startup="false"
+                     proxy-interface="javax.sql.DataSource"/>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceProviderClass" value="org.hibernate.ejb.HibernatePersistence"/>
+        <property name="dataSource" ref="myContactDataSource"/>
+        <property name="persistenceUnitName" value="silexDataSource"/>
+        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
+
+    </bean>
+
+    
+    <jpa:repositories base-package="uaiContacts.repository"
+                      entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager"/>
+                       -->
+</beans>
