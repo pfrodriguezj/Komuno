@@ -10,7 +10,7 @@
     <div class="navbar">
         <div class="navbar-inner">
             <div class="container">
-                <ul class="nav">
+                <ul class="nav navbar-nav">
                     <li>
                         <a href="<c:url value="/"/>"
                            title='<spring:message code="header.home"/>'
@@ -18,7 +18,13 @@
                             <spring:message code="header.home"/>
                         </a>
                     </li>
-                    <li><a title='<spring:message code="header.copropiedades"/>' href="<c:url value='/protected/copropiedades'/>"><spring:message code="header.copropiedades"/></a></li>
+                    <li>
+                    	<a title='<spring:message code="header.copropiedades"/>' 
+                    		href="<c:url value='/protected/copropiedades'/>"
+                    			>
+                   			<spring:message code="header.copropiedades"/>
+               			</a>
+           			</li>
                 </ul>
                 <ul class="nav pull-right">
                     <li><a href="<c:url value='/logout' />" title='<spring:message code="header.logout"/>'><spring:message code="header.logout"/>&nbsp;(${user.name})</a></li>

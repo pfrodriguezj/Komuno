@@ -21,6 +21,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import co.com.silex.dto.UserDto;
+
 
 @Entity
 @Table(name = "user", schema="komuno")
@@ -232,19 +234,14 @@ public class User {
 		return set;
 	}
 	
-	/*
 	public UserDto toDto() {
 		UserDto dto = new UserDto();
 		dto.setId(this.id);
-		dto.setUserName(this.username);
+		dto.setUsername(username);
 		dto.setName(this.name);
-		if (this.getRoles() != null) {
-			dto.setRoles(new HashSet<RoleDto>());
-			for (Role r : this.getRoles()) {
-				dto.getRoles().add(r.toDto());
-			}
-		}
+		dto.setEmail(email);
+		dto.setEnabled(enabled);
 		return dto;
-	}*/
+	}
 
 }

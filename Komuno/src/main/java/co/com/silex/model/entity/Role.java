@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,6 +36,8 @@ public class Role {
 	 * Autorithies de este rol
 	 */
 	private List<Authority> authorities;
+	
+	
 	
 
 	public Role() {
@@ -99,6 +102,7 @@ public class Role {
 	public List<Authority> getAuthorities() {
 		return (this.authorities);
 	}
+	
 
 	/**
 	 * Asigna una lista de authorities al rol
@@ -118,26 +122,6 @@ public class Role {
 	}
 	
 	
-	
-	/**
-	 * Devuelve la lista de usuarios que tienen el rol
-	 * @return El valor de users.
-	 */
-	@ManyToMany
-	@JoinTable(name = "user_role",  
-			joinColumns = { @JoinColumn(name = "role_id") }, 
-			inverseJoinColumns = { @JoinColumn(name = "user_id") })
-	public List<User> getUsers() {
-		return (this.users);
-	}
-
-	/**
-	 * Asigna una lista de usuarios al rol
-	 * @param 
-	 */
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
 	
 	/*
 	public RoleDto toDto(){

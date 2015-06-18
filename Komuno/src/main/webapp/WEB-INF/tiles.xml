@@ -12,6 +12,10 @@
 	<definition name="welcomePage" extends="master.page">
         <put-attribute name="body" value="/protected/welcomePage.jsp"/>
     </definition>
+
+	<definition name="copropiedades" extends="master.page">
+        <put-attribute name="body" value="/protected/copropiedades.jsp"/>
+    </definition>
     
 
 </tiles-definitions>
