@@ -99,7 +99,7 @@ public class Copropiedad {
 		cDto.setId(id);
 		cDto.setNombre(nombre);
 		cDto.setNit(nit);
-		cDto.setAdministrador(cDto.getAdministrador());
+		cDto.setAdministrador(getAdministrador()!=null?getAdministrador().toDto():null);
 		return cDto;
 	}
 

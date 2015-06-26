@@ -1,21 +1,18 @@
 package co.com.silex.controller;
 
-import java.io.IOException;
 import java.util.List;
 
-
-
-
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import co.com.silex.dto.CopropiedadDto;
 import co.com.silex.model.entity.Copropiedad;
 import co.com.silex.model.repositories.CopropiedadRepository;
 
@@ -48,25 +45,15 @@ public class CopropiedadesController {
 			response= "{\"aaData\":\"\"}";
 		}
         return response;
-       
-/*		
-		String json =
-		        "{  \"sEcho\": 2," +
-		        "   \"iTotalRecords\": 2," +
-		        "   \"iTotalDisplayRecords\": 2," +
-		        "   \"aaData\": [" +
-		        "       {" +
-		        "           \"nombre\" : \"balcones\" ," +
-		        "           \"nit\" : \"900123456\"" +
-		        "       }," +
-		        "       {" +
-		        "           \"nombre\" :\"Miradores\"," +
-		        "           \"nit\" :\"900987654\"" +
-		        "       }" +
-		        "   ]" +
-		        "}";
-		return json;
-	*/	
     }
+	
+	@RequestMapping(value = "/ver/{idCopropiedad}", method = RequestMethod.GET)
+    public ModelAndView copropiedadesVer(@PathVariable Long idCopropiedad, ModelMap model) {
+		Copropiedad cop = cRepo.findOne(idCopropiedad);
+		CopropiedadDto copDto = cop.toDto();
+		model.put("copropiedad", copDto);
+        return new ModelAndView("copropiedad","model",model);
+    }
+	
 
 }

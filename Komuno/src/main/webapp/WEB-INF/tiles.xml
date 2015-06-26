@@ -16,6 +16,12 @@
 	<definition name="copropiedades" extends="master.page">
         <put-attribute name="body" value="/protected/copropiedades.jsp"/>
     </definition>
+	<definition name="copropiedad" extends="master.page">
+        <put-attribute name="body" value="/protected/copropiedad.jsp"/>
+    </definition>
+	<definition name="unidadResidencial" extends="master.page">
+        <put-attribute name="body" value="/protected/unidadResidencial.jsp"/>
+    </definition>
     
 
 </tiles-definitions>

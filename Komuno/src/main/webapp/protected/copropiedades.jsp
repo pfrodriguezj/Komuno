@@ -33,13 +33,13 @@
 			        'aoColumns': [
 			                      { 'mData': 'nombre' ,
 						        	 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-						        		 var url = "<c:url value='/protected/copropiedades/ver/'/>" + oData.nit;
+						        		 var url = "<c:url value='/protected/copropiedades/ver/'/>" + oData.id;
 						                 $(nTd).html("<a href="+url+">"+oData.nombre+"</a>");
 			             			}
 			                      }, 
 			                      { 'mData': 'nit',
 						        	 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-						        		 var url = "<c:url value='/protected/copropiedades/ver/'/>" + oData.nit;
+						        		 var url = "<c:url value='/protected/copropiedades/ver/'/>" + oData.id;
 						                 $(nTd).html("<a href="+url+">"+oData.nit+"</a>");
 			             			}
 			        			}]
