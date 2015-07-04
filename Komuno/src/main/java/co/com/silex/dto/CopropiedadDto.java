@@ -1,7 +1,6 @@
 package co.com.silex.dto;
 
 
-import co.com.silex.model.entity.User;
 
 public class CopropiedadDto {
 
@@ -43,6 +42,10 @@ public class CopropiedadDto {
 
 	public void setAdministrador(UserDto administrador) {
 		this.administrador = administrador;
+	}
+	
+	public String toString(){
+		return nombre;
 	}
 	
 

@@ -12,6 +12,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
+import co.com.silex.dto.CopropiedadDto;
+import co.com.silex.dto.PersonaDto;
+import co.com.silex.dto.UnidadResidencialDto;
+
 @Entity
 @Table(name="unidad_residencial", schema="komuno")
 public class UnidadResidencial {
@@ -77,7 +81,7 @@ public class UnidadResidencial {
 	}
 	
 	public Double getEstadoCuenta() {
-		return estadoCuentaInicial;
+		return estadoCuenta;
 	}
 
 	public void setEstadoCuenta(Double estadoCuenta) {
@@ -100,5 +104,23 @@ public class UnidadResidencial {
 		this.propietario = propietario;
 	}
 	
-	
+
+	public UnidadResidencialDto toDto(){
+		
+		UnidadResidencialDto urDto = new UnidadResidencialDto();
+		urDto.setId(id);
+		urDto.setNombreUnidad(nombreUnidad);
+		urDto.setValorCuota(valorCuota);
+		urDto.setEstadoCuenta(estadoCuenta);
+		urDto.setEstadoCuentaInicial(estadoCuentaInicial);
+		CopropiedadDto cDto = new CopropiedadDto();
+		cDto = edificio!=null?edificio.toDto():null;
+		urDto.setCopropiedadDto(cDto);
+		PersonaDto pDto = new PersonaDto();
+		pDto = propietario!=null?propietario.toDto():null;
+		urDto.setPropietario(pDto);
+		
+		return urDto;
+	}
+
 }

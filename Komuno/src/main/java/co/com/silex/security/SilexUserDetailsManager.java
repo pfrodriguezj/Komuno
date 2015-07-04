@@ -27,6 +27,7 @@ public class SilexUserDetailsManager implements UserDetailsService{
 		User user = userRepo.findOneByUsername(username);
 		SilexUserDetails silexUser = new SilexUserDetails();
 
+		silexUser.setId(user.getId());
 		silexUser.setAccountNonExpired(true);
 		silexUser.setAccountNonLocked(true);
 		silexUser.setCredentialsNonExpired(true);

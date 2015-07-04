@@ -63,6 +63,7 @@ public class SilexUserDetails implements UserDetails{
 	 */
 	private String nombres;
 
+	private Long id;
 	/** 
 	 * Devuelve los roles aosciados a este usuario.
 	 * 
@@ -215,6 +216,15 @@ public class SilexUserDetails implements UserDetails{
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 
 }
 

@@ -20,10 +20,26 @@
 		</div>
 </div>
 		
-<div class="container">
-	<h2> RESIDENTES</h2>
-	tabla de residentes
-</div>
+        <div id="residentesContenedor">
+	        <div class="row">
+		        <!-- DataTable -->
+		        <div class="col-lg-12 text-right" style="overflow-x: auto;">
+		          <table id="tablaResidentes"
+		            class="table table-striped table-bordered table-hover">
+		            <thead>
+		              <tr class="table-header">
+		                <th>NOMBRE</th>
+		                <th>DOCUMENTO</th>
+		                <th>TELEFONO</th>
+		                <th>EMAIL</th>
+		              </tr>
+		            </thead>
+		            <tbody></tbody>
+		          </table>
+		          <div class="text-center text-warning" id="tablaHistorialPagosNoRegistros"></div>
+		        </div>
+        	</div>
+       	</div>
 
         <div id="historialPagosContenedor">
 	        <div class="row">
@@ -53,6 +69,18 @@
 
        	<script>
 			$(document).ready(function() {
+			    $('#tablaResidentes').dataTable( {
+			        "bProcessing": true,
+			        "bServerSide": false,
+			        "bJQueryUI": true,
+			        "sAjaxSource": "<c:url value='/protected/residente/lst/'/>${model.unidad.id}",
+			        'aoColumns': [
+			                      { 'mData': 'residente.nombre' }, 
+			                      { 'mData': 'residente.documento'},
+			                      { 'mData': 'residente.telefono'},
+			                      { 'mData': 'residente.email'}]
+			    } );
+			    
 			    $('#tablaHistorialPagos').dataTable( {
 			        "bProcessing": true,
 			        "bServerSide": false,

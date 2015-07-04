@@ -13,8 +13,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
-@Table(name="residente", schema="komuno")
-public class Residente {
+@Table(name="consejo", schema="komuno")
+public class Consejo {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -22,14 +22,12 @@ public class Residente {
 	private Long id;
 
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "unidad_residencial_id", nullable = false)
-	@ForeignKey(name = "FK_residente_unidad")
-	private UnidadResidencial unidad;
+	@JoinColumn(name = "copropiedad_id", nullable = false)
+	@ForeignKey(name = "FK_consejo_copropiedad")
+	private Copropiedad copropiedad;
 
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "persona_id", nullable = false)
-	@ForeignKey(name = "FK_residente_persona")
-	private Persona residente;
+	@Column(name = "nombre", nullable = false)
+	private String nombre;
 
 	public Long getId() {
 		return id;
@@ -39,19 +37,19 @@ public class Residente {
 		this.id = id;
 	}
 
-	public UnidadResidencial getUnidad() {
-		return unidad;
+	public Copropiedad getCopropiedad() {
+		return copropiedad;
 	}
 
-	public void setUnidad(UnidadResidencial unidad) {
-		this.unidad = unidad;
+	public void setCopropiedad(Copropiedad copropiedad) {
+		this.copropiedad = copropiedad;
 	}
 
-	public Persona getResidente() {
-		return residente;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setResidente(Persona residente) {
-		this.residente = residente;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 }

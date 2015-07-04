@@ -22,6 +22,9 @@
 	<definition name="unidadResidencial" extends="master.page">
         <put-attribute name="body" value="/protected/unidadResidencial.jsp"/>
     </definition>
+	<definition name="consejo" extends="master.page">
+        <put-attribute name="body" value="/protected/consejo.jsp"/>
+    </definition>
     
 
 </tiles-definitions>

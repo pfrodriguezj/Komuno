@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import co.com.silex.dto.PersonaDto;
+
 @Entity
 @Table(name="persona", schema="komuno")
 public class Persona {
@@ -77,6 +79,17 @@ public class Persona {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public PersonaDto toDto(){
+		PersonaDto pDto = new PersonaDto();
+		pDto.setId(id);
+		pDto.setDocumento(documento);
+		pDto.setEmail(email);
+		pDto.setNombre(nombre);
+		pDto.setTelefono(telefono);
+		pDto.setTipoDocumento(tipoDocumento);
+		return pDto;
 	}
 	
 

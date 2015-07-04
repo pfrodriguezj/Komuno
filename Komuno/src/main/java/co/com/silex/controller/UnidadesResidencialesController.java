@@ -28,12 +28,13 @@ public class UnidadesResidencialesController {
 	@Autowired
 	PagoCuotaRepository pagoCuotaRepo;
 
-	@RequestMapping(value="/lst",  method = RequestMethod.GET)
-    public @ResponseBody String copropiedadesLst() {
+	@RequestMapping(value="/lst/{idUnidad}",  method = RequestMethod.GET)
+    public @ResponseBody String copropiedadesLst(@PathVariable Long idUnidad) {
 		String response = "";
 		
 		//List<Copropiedad> copropiedades = cRepo.findByAdministradorId(1L);
-		List<UnidadResidencial> unidades = unidadRepo.findAllByEdificioId(1L);
+		List<UnidadResidencial> unidades = unidadRepo.findAllByEdificioId(idUnidad);
+		
 		if(unidades != null && unidades.size() > 0){
 			try {
 				String json = new ObjectMapper().writeValueAsString(unidades);
