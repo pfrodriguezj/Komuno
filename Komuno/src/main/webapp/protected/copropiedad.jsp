@@ -51,25 +51,6 @@
 		</div>		
 </div>
 
-        <div id="presupuestoContenedor">
-	        <div class="row">
-		        <!-- DataTable -->
-		        <div class="col-lg-12 text-right" style="overflow-x: auto;">
-		          <table id="tablaPresupuesto"
-		            class="table table-striped table-bordered table-hover">
-		            <thead>
-		              <tr class="table-header">
-		                <th>CONCEPTO</th>
-		                <th>PERIODICIDAD</th>
-		                <th>VALOR</th>
-		              </tr>
-		            </thead>
-		            <tbody></tbody>
-		          </table>
-		          <div class="text-center text-warning" id="tablaPresupuestoNoRegistros"></div>
-		        </div>
-        	</div>
-       	</div>
 
         <div id="consejosContenedor">
 	        <div class="row">

@@ -49,7 +49,11 @@
           					<span class="caret"></span>
 				        </a>
 				        <ul id="menuFinanzas" class="dropdown-menu" aria-labelledby="menu_finanzas">
-				        	 <li><a href="#"><spring:message code='menu.presupuesto'/></a></li>
+				        	 <li>
+				        	 	<a href='<c:url value="/protected/gasto_presupuesto/ver_presupuesto"/>' title='Ver presupuesto'>
+				        	 		<spring:message code='menu.presupuesto'/>
+				        	 	</a>
+				        	 </li>
 				        	 <li><a href="#"><spring:message code='menu.egresos'/></a></li>
 				        	 <li><a href="#"><spring:message code='menu.ingresos'/></a></li>
 				        	 <li><a href="#"><spring:message code='menu.cartera'/></a></li>

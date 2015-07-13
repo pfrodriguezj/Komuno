@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ForeignKey;
 
 import co.com.silex.dto.CopropiedadDto;
-import co.com.silex.dto.UserDto;
 
 @Entity
 @Table(name="copropiedad", schema="komuno")
@@ -34,65 +33,38 @@ public class Copropiedad {
 	@JoinColumn(name = "administrador", nullable = false)
 	@ForeignKey(name = "FK_copropiedad_usuario")
 	private User administrador;
-	
-	
-
 
 	public Long getId() {
 		return id;
 	}
 
-
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
-
 
 	public String getNombre() {
 		return nombre;
 	}
 
-
-
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-
-
 
 	public String getNit() {
 		return nit;
 	}
 
-
-
-
 	public void setNit(String nit) {
 		this.nit = nit;
 	}
-
-
-
 
 	public User getAdministrador() {
 		return administrador;
 	}
 
-
-
-
 	public void setAdministrador(User administrador) {
 		this.administrador = administrador;
 	}
-
-
-
 
 	public CopropiedadDto toDto(){
 		CopropiedadDto cDto = new CopropiedadDto();
@@ -102,5 +74,4 @@ public class Copropiedad {
 		cDto.setAdministrador(getAdministrador()!=null?getAdministrador().toDto():null);
 		return cDto;
 	}
-
 }

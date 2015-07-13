@@ -25,6 +25,9 @@
 	<definition name="consejo" extends="master.page">
         <put-attribute name="body" value="/protected/consejo.jsp"/>
     </definition>
+	<definition name="presupuesto" extends="master.page">
+        <put-attribute name="body" value="/protected/presupuesto.jsp"/>
+    </definition>
     
 
 </tiles-definitions>
