@@ -13,6 +13,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,20 +21,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import co.com.silex.dto.CopropiedadDto;
-import co.com.silex.model.entity.Consejo;
-import co.com.silex.model.entity.Copropiedad;
-import co.com.silex.model.entity.GastoPresupuesto;
+import co.com.silex.model.entity.ItemPresupuesto;
+import co.com.silex.model.repositories.CopropiedadRepository;
 import co.com.silex.model.repositories.EgresoRepository;
-import co.com.silex.model.repositories.GastoPresupuestoRepository;
+import co.com.silex.model.repositories.ItemPresupuestoRepository;
 import co.com.silex.model.repositories.IngresoRepository;
 import co.com.silex.model.repositories.UnidadResidencialRepository;
+import co.com.silex.util.AppListUtil;
 
 @Controller
-@RequestMapping(value = "/protected/gasto_presupuesto")
-public class GastoPresupuestoController {
+@RequestMapping(value = "/protected/presupuesto")
+public class PresupuestoController {
 
 	@Autowired
-	GastoPresupuestoRepository gastoPresupuestoRepo;
+	ItemPresupuestoRepository itemPresupuestoRepo;
 	
 	@Autowired
 	UnidadResidencialRepository unidadRepo;
@@ -44,6 +45,9 @@ public class GastoPresupuestoController {
 	@Autowired
 	IngresoRepository ingresoRepo;
 	
+	@Autowired
+	CopropiedadRepository copropiedadRepo;
+	
 	@RequestMapping(value="/lst",  method = RequestMethod.GET)
     public @ResponseBody String copropiedadesLst(HttpSession session) {
 		
@@ -51,10 +55,10 @@ public class GastoPresupuestoController {
 		
 		String response = "";
 		
-		List<GastoPresupuesto> gastosPresupuesto = gastoPresupuestoRepo.findAllByCopropiedadId(cDto.getId());
-		if(gastosPresupuesto != null && gastosPresupuesto.size() > 0){
+		List<ItemPresupuesto> itemsPresupuesto = itemPresupuestoRepo.findAllByCopropiedadId(cDto.getId());
+		if(itemsPresupuesto != null && itemsPresupuesto.size() > 0){
 			try {
-				String json = new ObjectMapper().writeValueAsString(gastosPresupuesto);
+				String json = new ObjectMapper().writeValueAsString(itemsPresupuesto);
 				response ="{\"aaData\":" + json + "}";
 			} catch (Exception e) {
 				response ="{\"aaData\":" + response + "}";
@@ -66,17 +70,17 @@ public class GastoPresupuestoController {
     }
 	
 	@RequestMapping(value = "/ver_presupuesto", method = RequestMethod.GET)
-    public ModelAndView copropiedadesVer(ModelMap model, HttpSession session) {
+    public ModelAndView verPresupuesto(ModelMap model, HttpSession session) {
 		CopropiedadDto cDto =(CopropiedadDto)session.getAttribute("copropiedad");
 		
 		if(cDto != null){
 		
 			//Total de cuotas de administracion
-			BigDecimal sumCuotas = unidadRepo.sumCoutasByEdificio(cDto.getId());
+			BigDecimal sumCuotas = unidadRepo.sumCoutasByCopropiedad(cDto.getId());
 			model.put("cuotasTotales",sumCuotas !=null?sumCuotas.doubleValue():0);
 			
 			//Total de gastos presupuestados
-			BigDecimal sumPresupuesto = gastoPresupuestoRepo.sumPresupuestoByCopropiedad(cDto.getId());
+			BigDecimal sumPresupuesto = itemPresupuestoRepo.sumGastosPresupuestoByCopropiedad(cDto.getId());
 			model.put("sumPresupuesto", sumPresupuesto!=null?sumPresupuesto.doubleValue():0);
 	
 			//Total de gastos mes actual
@@ -92,9 +96,28 @@ public class GastoPresupuestoController {
 			
 			SimpleDateFormat formateador = new SimpleDateFormat("MMMMM");
 			model.put("mes", formateador.format(new Date()));
+			
+			model.put("listPeriodicidad", AppListUtil.getLista("periodoUnidad"));
+			
+			ItemPresupuesto ip = new ItemPresupuesto();
+			
+			model.put("itemPresupuesto",ip);
 		}
 
         return new ModelAndView("presupuesto","model",model);
+    }
+
+	@RequestMapping(value="/save",  method = RequestMethod.POST)
+    public ModelAndView saveItemPresupuesto(ModelMap model, HttpSession session, @ModelAttribute("itemPresupuesto") ItemPresupuesto nuevoItem) {
+		
+		ItemPresupuesto ip = nuevoItem;
+		CopropiedadDto cDto = (CopropiedadDto)session.getAttribute("copropiedad");
+		
+
+		nuevoItem.setCopropiedad(copropiedadRepo.findOne(cDto.getId()));
+		itemPresupuestoRepo.save(nuevoItem);
+		
+		return verPresupuesto(model, session);
     }
 
 

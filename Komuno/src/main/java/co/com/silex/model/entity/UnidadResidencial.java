@@ -26,9 +26,9 @@ public class UnidadResidencial {
 	private Long id;
 
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "edificio_id", nullable = false)
+	@JoinColumn(name = "copropiedad_id", nullable = false)
 	@ForeignKey(name = "FK_unidad_residencial_copropiedad")
-	private Copropiedad edificio;
+	private Copropiedad copropiedad;
 	
 	@Column(name = "nombre_unidad", nullable = false, length = 255)
 	private String nombreUnidad;
@@ -56,12 +56,12 @@ public class UnidadResidencial {
 		this.id = id;
 	}
 
-	public Copropiedad getEdificio() {
-		return edificio;
+	public Copropiedad getCopropiedad() {
+		return copropiedad;
 	}
 
-	public void setEdificio(Copropiedad edificio) {
-		this.edificio = edificio;
+	public void setCopropiedad(Copropiedad copropiedad) {
+		this.copropiedad = copropiedad;
 	}
 
 	public String getNombreUnidad() {
@@ -114,7 +114,7 @@ public class UnidadResidencial {
 		urDto.setEstadoCuenta(estadoCuenta);
 		urDto.setEstadoCuentaInicial(estadoCuentaInicial);
 		CopropiedadDto cDto = new CopropiedadDto();
-		cDto = edificio!=null?edificio.toDto():null;
+		cDto = copropiedad!=null?copropiedad.toDto():null;
 		urDto.setCopropiedadDto(cDto);
 		PersonaDto pDto = new PersonaDto();
 		pDto = propietario!=null?propietario.toDto():null;

@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 
 <div class="well form-inline">
         <blockquote class="col-lg-8 form-title">
@@ -71,43 +73,62 @@
 <!-- Modal Mod Presupuesto-->
 <div class="modal fade" id="modPresupuestoModal" tabindex="-1" role="dialog" aria-labelledby="modPresupuestoModalLabel">
   <div class="modal-dialog" role="document">
+  	<c:url value='/protected/presupuesto/save' var="url"/>
+  	<form:form method="POST" action="${url}" commandName="itemPresupuesto">
+  									
     <div class="modal-content">
+    
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modPresupuestoModalLabel">Modificar Presupuesto</h4>
+        <h4 class="modal-title" id="modPresupuestoModalLabel">Crear Item Presupuestal</h4>
       </div>
       <div class="modal-body">
 			<div class="well form-inline">
-			        <blockquote class="col-lg-8 form-title">
-			            <strong class="col-lg-12 form-title" style="display: inline;">
-			                
-			            </strong>
-			            
-			        </blockquote>
-			        <button type="button" class="btn btn-success col-lg-4" data-toggle="modal" data-target="#modPresupuestoModal">Modificar presupuesto</button>
-			        
-					<div class="form-group">
-						<label for="totalCuotas" class="col-lg-2 control-label">INGRESO PRESUPUESTADO</label>
-						<div class="col-lg-4">
-							<input id="totalCuotas" name="totalCuotas" class="form-control" value="${model.cuotasTotales}" readonly="readonly"/>
+
+				<div class="form-group">
+					
+						<label for="concepto_item" class="col-lg-4 control-label">CONCEPTO</label>
+						<div class="col-lg-8">
+							<form:input path="concepto" class="form-control" />
 						</div>
-						<label for="totalPresupuesto" class="col-lg-2 control-label">GASTO PRESUPUESTADO</label>
-						<div class="col-lg-4">
-							<input id="sumPresupuesto" name="sumPresupuesto" class="form-control" value="${model.sumPresupuesto}" readonly="readonly"/>
+						<label for="totalPresupuesto" class="col-lg-4">PERIODICIDAD</label>
+						<div class="col-lg-8">
+							<form:select path="periodicidad" items="${model.listPeriodicidad}" class="form-control"/>
 						</div>
-					</div>		
+						<label for="totalPresupuesto" class="col-lg-4 control-label">VALOR</label>
+						<div class="col-lg-8">
+							<form:input path="valorPrevisto" class="form-control"/>
+						</div>
+						<label for="totalPresupuesto" class="col-lg-4 control-label">TIPO DE ITEM</label>
+						<div class="col-lg-8">
+			                	<div class="radio-inline"  style="padding-top:0;">
+				                    <label class="radio-inline" style="padding-top:0;">
+									  <form:radiobutton path="tipoItem" id="esGasto" value="G"/> Gasto
+									</label>
+								</div>
+								<div class="radio-inline" style="padding-top:0;">
+									<label class="radio-inline" style="padding-top:0;">
+									  <form:radiobutton path="tipoItem" id="esIngreso" value="I"/> Ingreso
+									</label>
+								</div>
+						</div>
+						
+				</div>		
+
+
 			</div>        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success">Guardar Presupuesto</button>
+        <button type="button" class="btn btn-success" onclick="javaScript:document.forms[0].submit()">Guardar Presupuesto</button>
       </div>
     </div>
+    </form:form>
   </div>
 </div>
 
-     	<link href="<c:url value='/resources/css/jquery.dataTables.min.css'  />" rel="stylesheet"/>
-        <script src="<c:url value='/resources/js/jquery.dataTables.min.js' />"></script>
+     	<link href="<c:url value='/resources/css/jquery.dataTables.min.css'/>" rel="stylesheet"/>
+        <script src="<c:url value='/resources/js/jquery.dataTables.min.js'/>"></script>
        	
        	    <script>
 				$(document).ready(function() {
@@ -116,7 +137,7 @@
 				        "bProcessing": true,
 				        "bServerSide": false,
 				        "bJQueryUI": true,
-				        "sAjaxSource": "<c:url value='/protected/gasto_presupuesto/lst/'/>${model.copropiedad.id}",
+				        "sAjaxSource": "<c:url value='/protected/presupuesto/lst/'/>${model.copropiedad.id}",
 				        'aoColumns': [
 				                      { 'mData': 'concepto' ,
 							        	 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {

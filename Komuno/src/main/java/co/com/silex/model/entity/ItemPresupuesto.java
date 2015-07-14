@@ -13,8 +13,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
-@Table(name="gasto_presupuesto", schema="komuno")
-public class GastoPresupuesto {
+@Table(name="item_presupuesto", schema="komuno")
+public class ItemPresupuesto {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -23,7 +23,7 @@ public class GastoPresupuesto {
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "copropiedad_id", nullable = false)
-	@ForeignKey(name = "FK_gasto_presupuesto_copropiedad")
+	@ForeignKey(name = "FK_item_presupuesto_copropiedad")
 	private Copropiedad copropiedad;
 	
 	@Column(name = "concepto", nullable = true)
@@ -34,6 +34,9 @@ public class GastoPresupuesto {
 	
 	@Column(name = "valor_previsto", nullable = true)
 	private Double valorPrevisto;
+
+	@Column(name = "tipo_item", nullable = false)
+	private String tipoItem;
 
 	public Long getId() {
 		return id;
@@ -73,5 +76,13 @@ public class GastoPresupuesto {
 
 	public void setValorPrevisto(Double valorPrevisto) {
 		this.valorPrevisto = valorPrevisto;
+	}
+
+	public String getTipoItem() {
+		return tipoItem;
+	}
+
+	public void setTipoItem(String tipoItem) {
+		this.tipoItem = tipoItem;
 	}
 }

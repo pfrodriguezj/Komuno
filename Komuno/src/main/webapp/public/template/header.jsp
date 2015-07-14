@@ -50,7 +50,7 @@
 				        </a>
 				        <ul id="menuFinanzas" class="dropdown-menu" aria-labelledby="menu_finanzas">
 				        	 <li>
-				        	 	<a href='<c:url value="/protected/gasto_presupuesto/ver_presupuesto"/>' title='Ver presupuesto'>
+				        	 	<a href='<c:url value="/protected/presupuesto/ver_presupuesto"/>' title='Ver presupuesto'>
 				        	 		<spring:message code='menu.presupuesto'/>
 				        	 	</a>
 				        	 </li>

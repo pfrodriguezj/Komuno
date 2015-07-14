@@ -43,7 +43,7 @@ public class Egreso {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "gasto_presupuesto_id", nullable = false)
 	@ForeignKey(name = "FK_egreso_gasto_presupuesto")
-	private GastoPresupuesto gastoPresupuesto;
+	private ItemPresupuesto gastoPresupuesto;
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "id_copropiedad", nullable = false)
@@ -98,11 +98,11 @@ public class Egreso {
 		this.pagadoA = pagadoA;
 	}
 
-	public GastoPresupuesto getGastoPresupuesto() {
+	public ItemPresupuesto getGastoPresupuesto() {
 		return gastoPresupuesto;
 	}
 
-	public void setGastoPresupuesto(GastoPresupuesto gastoPresupuesto) {
+	public void setGastoPresupuesto(ItemPresupuesto gastoPresupuesto) {
 		this.gastoPresupuesto = gastoPresupuesto;
 	}
 

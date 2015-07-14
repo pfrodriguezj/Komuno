@@ -33,7 +33,7 @@ public class UnidadesResidencialesController {
 		String response = "";
 		
 		//List<Copropiedad> copropiedades = cRepo.findByAdministradorId(1L);
-		List<UnidadResidencial> unidades = unidadRepo.findAllByEdificioId(idUnidad);
+		List<UnidadResidencial> unidades = unidadRepo.findAllByCopropiedadId(idUnidad);
 		
 		if(unidades != null && unidades.size() > 0){
 			try {

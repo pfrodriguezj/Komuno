@@ -10,12 +10,12 @@ import co.com.silex.model.entity.UnidadResidencial;
 
 public interface UnidadResidencialRepository extends CrudRepository<UnidadResidencial, Long>{
 
-	List<UnidadResidencial> findAllByEdificioId(Long edificioId);
+	List<UnidadResidencial> findAllByCopropiedadId(Long copropiedadId);
 	
-	@Query(value = "SELECT sum(valor_cuota)  FROM unidad_residencial WHERE edificio_id = ?1", nativeQuery = true)
-	BigDecimal sumCoutasByEdificio(Long copropiedadId);
+	@Query(value = "SELECT sum(valor_cuota)  FROM unidad_residencial WHERE copropiedad_id = ?1", nativeQuery = true)
+	BigDecimal sumCoutasByCopropiedad(Long copropiedadId);
 
-	@Query(value = "SELECT sum(estado_cuenta)  FROM unidad_residencial WHERE edificio_id = ?1", nativeQuery = true)
-	BigDecimal sumEstadosCuentaByEdificio(Long copropiedadId);
+	@Query(value = "SELECT sum(estado_cuenta)  FROM unidad_residencial WHERE copropiedad_id = ?1", nativeQuery = true)
+	BigDecimal sumEstadosCuentaByCopropiedad(Long copropiedadId);
 
 }

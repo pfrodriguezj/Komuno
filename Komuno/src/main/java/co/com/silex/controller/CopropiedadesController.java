@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import co.com.silex.dto.CopropiedadDto;
 import co.com.silex.model.entity.Copropiedad;
 import co.com.silex.model.repositories.CopropiedadRepository;
-import co.com.silex.model.repositories.GastoPresupuestoRepository;
+import co.com.silex.model.repositories.ItemPresupuestoRepository;
 import co.com.silex.model.repositories.UnidadResidencialRepository;
 import co.com.silex.security.SilexUserDetails;
 
@@ -36,7 +36,7 @@ public class CopropiedadesController {
 	UnidadResidencialRepository unidadRepo;
 	
 	@Autowired
-	GastoPresupuestoRepository gastoRepo;
+	ItemPresupuestoRepository itemRepo;
 	
 	@RequestMapping(method = RequestMethod.GET)
     public ModelAndView copropiedadesPage() {
@@ -75,16 +75,16 @@ public class CopropiedadesController {
 			
 			model.put("copropiedad", copDto);
 			
-			BigDecimal sumCuotas = unidadRepo.sumCoutasByEdificio(idCopropiedad);
+			BigDecimal sumCuotas = unidadRepo.sumCoutasByCopropiedad(idCopropiedad);
 			model.put("cuotasTotales",sumCuotas !=null?sumCuotas.doubleValue():0);
 			
-			BigDecimal sumCuotasMora = unidadRepo.sumEstadosCuentaByEdificio(idCopropiedad);
+			BigDecimal sumCuotasMora = unidadRepo.sumEstadosCuentaByCopropiedad(idCopropiedad);
 			model.put("cuotasMora", sumCuotasMora!=null?sumCuotasMora.doubleValue():0);
 			
-			BigDecimal sumPresupuesto = gastoRepo.sumPresupuestoByCopropiedad(idCopropiedad);
+			BigDecimal sumPresupuesto = itemRepo.sumGastosPresupuestoByCopropiedad(idCopropiedad);
 			model.put("sumPresupuesto", sumPresupuesto!=null?sumPresupuesto.doubleValue():0);
 	
-			BigDecimal sumPagosMes = gastoRepo.sumPresupuestoByCopropiedad(idCopropiedad);
+			BigDecimal sumPagosMes = itemRepo.sumIngresosPresupuestoByCopropiedad(idCopropiedad);
 			model.put("sumPresupuesto", sumPresupuesto!=null?sumPresupuesto.doubleValue():0);
 			
 		}
