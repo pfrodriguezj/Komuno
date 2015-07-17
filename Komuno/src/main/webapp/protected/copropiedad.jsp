@@ -1,9 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <div class="well form-horizontal">
         <blockquote class="col-lg-12 form-title">
             <strong class="col-lg-12 form-title" style="display: inline;">
-                ${model.copropiedad.nombre}
+                <spring:message code="header.copropiedad.generales"/>
             </strong>
         </blockquote>
 		<div class="form-group">
@@ -47,125 +48,20 @@
 			<div class="col-lg-4">
 				<input id="sumPresupuesto" name="sumPresupuesto" class="form-control" value="pendiente" readonly="readonly"/>
 			</div>
-			
-		</div>		
+		</div>
+		
+			<div class="row">
+	        	<button type="button" class="btn btn-success col-lg-2" data-toggle="modal" data-target="#modPresupuestoModal">Generar recibos</button>
+	        	<div class="col-lg-1"></div>
+	        	<button type="button" class="btn btn-success col-lg-2" data-toggle="modal" data-target="#modPresupuestoModal">Enviar mensaje</button>
+	        	<div class="col-lg-1"></div>
+	        	<button type="button" class="btn btn-success col-lg-2" data-toggle="modal" data-target="#modPresupuestoModal">Ver documentos</button>
+	        	
+	        </div>
 </div>
 
 
-        <div id="consejosContenedor">
-	        <div class="row">
-		        <!-- DataTable -->
-		        <div class="col-lg-12 text-right" style="overflow-x: auto;">
-		          <table id="tablaConsejos"
-		            class="table table-striped table-bordered table-hover">
-		            <thead>
-		              <tr class="table-header">
-		                <th>CONSEJO</th>
-		              </tr>
-		            </thead>
-		            <tbody></tbody>
-		          </table>
-		          <div class="text-center text-warning" id="tablaConsejosNoRegistros"></div>
-		        </div>
-        	</div>
-       	</div>
 
 
-        <div id="unidadesContenedor">
-	        <div class="row">
-		        <!-- DataTable -->
-		        <div class="col-lg-12 text-right" style="overflow-x: auto;">
-		          <table id="tablaUnidades"
-		            class="table table-striped table-bordered table-hover">
-		            <thead>
-		              <tr class="table-header">
-		                <th>UNIDAD</th>
-		                <th>PROPIETARIO</th>
-		                <th>SALDO</th>
-		                <th>CUOTA</th>
-		              </tr>
-		            </thead>
-		            <tbody></tbody>
-		          </table>
-		          <div class="text-center text-warning" id="tablaUnidadesNoRegistros"></div>
-		        </div>
-        	</div>
-       	</div>
 
 
-        <link href="<c:url value='/resources/css/jquery.dataTables.min.css'  />" rel="stylesheet"/>
-        <script src="<c:url value='/resources/js/jquery.dataTables.min.js' />"></script>
-
-       	
-       	<script>
-			$(document).ready(function() {
-				
-			    $('#tablaConsejos').dataTable( {
-			        "bProcessing": true,
-			        "bServerSide": false,
-			        "bJQueryUI": true,
-			        "sAjaxSource": "<c:url value='/protected/consejo/lst/'/>${model.copropiedad.id}",
-			        'aoColumns': [
-			                      { 'mData': 'nombre' ,
-						        	 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-						        		 var url = "<c:url value='/protected/consejo/ver/'/>" + oData.id;
-						                 $(nTd).html("<a href="+url+">"+oData.nombre+"</a>");
-			             			}
-			                      }]
-			    } );
-
-			    $('#tablaPresupuesto').dataTable( {
-			        "bProcessing": true,
-			        "bServerSide": false,
-			        "bJQueryUI": true,
-			        "sAjaxSource": "<c:url value='/protected/gasto_presupuesto/lst/'/>${model.copropiedad.id}",
-			        'aoColumns': [
-			                      { 'mData': 'concepto' ,
-						        	 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-						        		 var url = "<c:url value='/protected/gasto_presupuesto/ver/'/>" + oData.id;
-						                 $(nTd).html("<a href="+url+">"+oData.concepto+"</a>");
-			             			}
-			                      },
-			                      { 'mData': 'periodicidad' 
-			                      },
-			                      { 'mData': 'valorPrevisto' 
-			                      }]
-			    } );
-
-				
-			    $('#tablaUnidades').dataTable( {
-			        "bProcessing": true,
-			        "bServerSide": false,
-			        "bJQueryUI": true,
-			        "sAjaxSource": "<c:url value='/protected/unidades_residenciales/lst/'/>${model.copropiedad.id}",
-			        'aoColumns': [
-			                      { 'mData': 'nombreUnidad' ,
-						        	 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-						        		 var url = "<c:url value='/protected/unidades_residenciales/ver/'/>" + oData.id;
-						                 $(nTd).html("<a href="+url+">"+oData.nombreUnidad+"</a>");
-			             			}
-			                      }, 
-			                      { 'mData': 'propietario',
-						        	 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-						        		 if(oData.propietario != null){
-							        		 var url = "<c:url value='/protected/unidades_residenciales/ver/'/>" + oData.id;
-							                 $(nTd).html("<a href="+url+">"+oData.propietario.nombre+"</a>");
-						        		 }
-			             			}
-			                      },
-			                      { 'mData': 'estadoCuenta',
-							        	 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-							        		 var url = "<c:url value='/protected/unidades_residenciales/ver/'/>" + oData.id;
-							                 $(nTd).html("<a href="+url+">"+oData.estadoCuenta+"</a>");
-				             		}
-			        			  },
-			                      { 'mData': 'valorCuota',
-							        	 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-							        		 var url = "<c:url value='/protected/unidades_residenciales/ver/'/>" + oData.id;
-							                 $(nTd).html("<a href="+url+">"+oData.valorCuota+"</a>");
-				             			}
-			        			  }]
-			    } );
-			});
-
-			</script>

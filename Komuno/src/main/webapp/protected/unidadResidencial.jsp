@@ -1,27 +1,60 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="well form-horizontal">
-        <blockquote class="col-lg-12 form-title">
-            <strong class="col-lg-12 form-title" style="display: inline;">
-                ${model.unidad.nombreUnidad}
-            </strong>
-        </blockquote>
-		<div class="form-group">
-			<label for="nit" class="col-lg-2 control-label">PROPIETARIO</label>
-			<div class="col-lg-10">
-				<input id="nombrePropietario" name="nombrePropietario" class="form-control" value="${model.unidad.propietario.nombre}"/>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="well form-horizontal">
+		        <blockquote class="col-lg-12 form-title">
+		            <strong class="col-lg-12 form-title" style="display: inline;">
+		                APARTAMENTO ${model.unidad.nombreUnidad}
+		            </strong>
+		        </blockquote>
+				<div class="form-group">
+					<label for="nit" class="col-lg-2 control-label">PROPIETARIO</label>
+					<div class="col-lg-10">
+						<input id="nombrePropietario" name="nombrePropietario" class="form-control" value="${model.unidad.propietario.nombre}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="nit" class="col-lg-2 control-label">TELEFONO</label>
+					<div class="col-lg-10">
+						<input id="nombrePropietario" name="nombrePropietario" class="form-control" value="${model.unidad.propietario.telefono}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="estadoCuenta" class="col-lg-2 control-label">SALDO</label>
+					<div class="col-lg-10">
+						<input id="estadoCuenta" name="estadoCuenta" class="form-control" value="${model.unidad.estadoCuenta}" readonly/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="intereses" class="col-lg-2 control-label">INTERESES</label>
+					<div class="col-lg-10">
+						<input id="intereses" name="intereses" class="form-control" value="pendiente" readonly/>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="nit" class="col-lg-2 control-label">TELEFONO</label>
-			<div class="col-lg-10">
-				<input id="nombrePropietario" name="nombrePropietario" class="form-control" value="${model.unidad.propietario.telefono}"/>
-			</div>
+		<div class="col-lg-4">
+				<button type="button" class="btn btn-success col-lg-12" data-toggle="modal" data-target="#modPresupuestoModal">Mascotas</button>
+	        	<button type="button" class="btn btn-success col-lg-12" data-toggle="modal" data-target="#modPresupuestoModal">Multas y sanciones</button>
+	        	<button type="button" class="btn btn-success col-lg-12" data-toggle="modal" data-target="#modPresupuestoModal">Inconformidades</button>
+	        	<button type="button" class="btn btn-success col-lg-12" data-toggle="modal" data-target="#modPresupuestoModal">Estado de cuenta</button>
+	        	<button type="button" class="btn btn-success col-lg-12" data-toggle="modal" data-target="#modPresupuestoModal">Servicios y áreas comunes</button>
 		</div>
+	</div>	
 </div>
-		
-        <div id="residentesContenedor">
-	        <div class="row">
+
+        <div id="residentesContenedor form-inline col-lg-12">
+	        <div class="row well">
+   	                <blockquote class="col-lg-10 form-title">
+            			<strong class="col-lg-12 form-title" style="display: inline;">
+	                		Residentes	
+            			</strong>
+    			    </blockquote>
+    			    <button type="button" class="btn btn-success col-lg-2" data-toggle="modal" data-target="#residenteModal">Nuevo Residente</button>
+	        
 		        <!-- DataTable -->
 		        <div class="col-lg-12 text-right" style="overflow-x: auto;">
 		          <table id="tablaResidentes"
@@ -41,8 +74,14 @@
         	</div>
        	</div>
 
-        <div id="historialPagosContenedor">
-	        <div class="row">
+        <div id="historialPagosContenedor form-inline col-lg-12">
+	        <div class="row well">
+	        		<blockquote class="col-lg-10 form-title">
+            			<strong class="col-lg-12 form-title" style="display: inline;">
+	                		Historial de pagos	
+            			</strong>
+    			    </blockquote>
+    			    <button type="button" class="btn btn-success col-lg-2" data-toggle="modal" data-target="#pagoModal">Nuevo Pago</button>
 		        <!-- DataTable -->
 		        <div class="col-lg-12 text-right" style="overflow-x: auto;">
 		          <table id="tablaHistorialPagos"

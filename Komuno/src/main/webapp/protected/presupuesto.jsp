@@ -2,48 +2,52 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-
-<div class="well form-inline">
-        <blockquote class="col-lg-8 form-title">
-            <strong class="col-lg-12 form-title" style="display: inline;">
-                <%=request.getSession().getAttribute("copropiedad") %> - <spring:message code="header.presupuesto"/>
-            </strong>
-            
-        </blockquote>
-        <button type="button" class="btn btn-success col-lg-4" data-toggle="modal" data-target="#modPresupuestoModal">Modificar presupuesto</button>
-        
-		<div class="form-group">
-			<label for="totalCuotas" class="col-lg-2 control-label">INGRESO PRESUPUESTADO</label>
-			<div class="col-lg-4">
-				<input id="totalCuotas" name="totalCuotas" class="form-control" value="${model.cuotasTotales}" readonly="readonly"/>
+<div class="row">
+	<div class="well form col-lg-12">
+	        <blockquote class="col-lg-6 form-title">
+	            <strong class="col-lg-12 form-title" style="display: inline;">
+	                <spring:message code="header.presupuesto"/>
+	            </strong>
+	        </blockquote>
+	        
+			<div class="form-group col-lg-6">
+				<label for="totalCuotas" class="col-lg-2 control-label">Ingresos</label>
+				<div class="col-lg-4">
+					<input id="totalCuotas" name="totalCuotas" class="form-control" value="${model.cuotasTotales}" readonly="readonly"/>
+				</div>
+				<label for="totalPresupuesto" class="col-lg-2 control-label">Gastos</label>
+				<div class="col-lg-4">
+					<input id="sumPresupuesto" name="sumPresupuesto" class="form-control" value="${model.sumPresupuesto}" readonly="readonly"/>
+				</div>
 			</div>
-			<label for="totalPresupuesto" class="col-lg-2 control-label">GASTO PRESUPUESTADO</label>
-			<div class="col-lg-4">
-				<input id="sumPresupuesto" name="sumPresupuesto" class="form-control" value="${model.sumPresupuesto}" readonly="readonly"/>
-			</div>
-		</div>		
+			<div class="col-lg-12">
+	        	<button type="button" class="btn btn-success col-lg-4" data-toggle="modal" data-target="#modPresupuestoModal">Nuevo &iacute;tem de presupuesto</button>
+	        </div>
+	</div>
 </div>
 
-<div class="well form-inline">
-        <blockquote class="col-lg-12 form-title">
-            <strong class="col-lg-12 form-title" style="display: inline;">
-                <%=request.getSession().getAttribute("copropiedad") %> - <spring:message code="header.ejecucion"/>	
-            </strong>
-        </blockquote>
-        
-   		<div class="form-group">
-			<label for="totalCuotas" class="col-lg-2 control-label">TOTAL INGRESOS ${model.mes}</label>
-			<div class="col-lg-4">
-				<input id="sumIngresosMes" name="sumIngresosMes" class="form-control" value="${model.sumIngresosMes}" readonly="readonly"/>
-			</div>
-			<label for="totalPresupuesto" class="col-lg-2 control-label">TOTAL EGRESOS ${model.mes}</label>
-			<div class="col-lg-4">
-				<input id="sumEgresosMes" name="sumEgresosMes" class="form-control" value="${model.sumEgresosMes}" readonly="readonly"/>
-			</div>
-		</div>		
+<div class="row">
+	<div class="well form col-lg-12">
+	        <blockquote class="col-lg-6 form-title">
+	            <strong class="col-lg-12 form-title" style="display: inline;">
+	                <spring:message code="header.ejecucion"/>	(${model.mes})
+	            </strong>
+	        </blockquote>
+	        
+	   		<div class="form-group col-lg-6">
+				<label for="totalCuotas" class="col-lg-2 control-label">Ingresos</label>
+				<div class="col-lg-4">
+					<input id="sumIngresosMes" name="sumIngresosMes" class="form-control" value="${model.sumIngresosMes}" readonly="readonly"/>
+				</div>
+				<label for="totalPresupuesto" class="col-lg-2 control-label">Egresos</label>
+				<div class="col-lg-4">
+					<input id="sumEgresosMes" name="sumEgresosMes" class="form-control" value="${model.sumEgresosMes}" readonly="readonly"/>
+				</div>
+			</div>		
+	</div>
 </div>
 
-        <div id="presupuestoContenedor form-inline">
+        <div id="presupuestoGastosContenedor form-inline col-lg-12">
 	        <div class="row well">
 	                <blockquote class="col-lg-12 form-title">
             			<strong class="col-lg-12 form-title" style="display: inline;">
@@ -53,7 +57,7 @@
 	        
 		        <!-- DataTable -->
 		        <div class="col-lg-12 text-right" style="overflow-x: auto;">
-		          <table id="tablaPresupuesto"
+		          <table id="tablaGastosPresupuesto"
 		            class="table table-striped table-bordered table-hover">
 		            <thead>
 		              <tr class="table-header">
@@ -64,7 +68,33 @@
 		            </thead>
 		            <tbody></tbody>
 		          </table>
-		          <div class="text-center text-warning" id="tablaPresupuestoNoRegistros"></div>
+		          <div class="text-center text-warning" id="tablaGastosPresupuestoNoRegistros"></div>
+		        </div>
+        	</div>
+       	</div>
+
+        <div id="presupuestoIngresosContenedor form-inline">
+	        <div class="row well">
+	                <blockquote class="col-lg-12 form-title">
+            			<strong class="col-lg-12 form-title" style="display: inline;">
+	                		Ingresos presupuestados	
+            			</strong>
+    			    </blockquote>
+	        
+		        <!-- DataTable -->
+		        <div class="col-lg-12 text-right" style="overflow-x: auto;">
+		          <table id="tablaIngresosPresupuesto"
+		            class="table table-striped table-bordered table-hover">
+		            <thead>
+		              <tr class="table-header">
+		                <th>CONCEPTO</th>
+		                <th>PERIODICIDAD</th>
+		                <th>VALOR</th>
+		              </tr>
+		            </thead>
+		            <tbody></tbody>
+		          </table>
+		          <div class="text-center text-warning" id="tablaIngresosPresupuestoNoRegistros"></div>
 		        </div>
         	</div>
        	</div>
@@ -87,19 +117,20 @@
 
 				<div class="form-group">
 					
+						<form:hidden path="id" />
 						<label for="concepto_item" class="col-lg-4 control-label">CONCEPTO</label>
 						<div class="col-lg-8">
 							<form:input path="concepto" class="form-control" />
 						</div>
-						<label for="totalPresupuesto" class="col-lg-4">PERIODICIDAD</label>
+						<label for="periodicidad" class="col-lg-4">PERIODICIDAD</label>
 						<div class="col-lg-8">
 							<form:select path="periodicidad" items="${model.listPeriodicidad}" class="form-control"/>
 						</div>
-						<label for="totalPresupuesto" class="col-lg-4 control-label">VALOR</label>
+						<label for="valorPrevisto" class="col-lg-4 control-label">VALOR</label>
 						<div class="col-lg-8">
 							<form:input path="valorPrevisto" class="form-control"/>
 						</div>
-						<label for="totalPresupuesto" class="col-lg-4 control-label">TIPO DE ITEM</label>
+						<label for="tipoItem" class="col-lg-4 control-label">TIPO DE ITEM</label>
 						<div class="col-lg-8">
 			                	<div class="radio-inline"  style="padding-top:0;">
 				                    <label class="radio-inline" style="padding-top:0;">
@@ -133,22 +164,83 @@
        	    <script>
 				$(document).ready(function() {
 	       	
-	     				$('#tablaPresupuesto').dataTable( {
+	     				$('#tablaGastosPresupuesto').dataTable( {
 				        "bProcessing": true,
 				        "bServerSide": false,
 				        "bJQueryUI": true,
-				        "sAjaxSource": "<c:url value='/protected/presupuesto/lst/'/>${model.copropiedad.id}",
-				        'aoColumns': [
-				                      { 'mData': 'concepto' ,
-							        	 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-							        		 var url = "<c:url value='/protected/gasto_presupuesto/ver/'/>" + oData.id;
-							                 $(nTd).html("<a href="+url+">"+oData.concepto+"</a>");
-				             			}
+				        "sAjaxSource": "<c:url value='/protected/presupuesto/lstGastosPresupuesto/'/>",
+					        'aoColumns': [
+				                      { 'mData': 'concepto' , 'sClass' : 'left',
+				             			"mRender": function ( data, type, full ) {
+				             		        return data + "<input type='hidden' value='" + full.id + "' />";
+				             		      }
 				                      },
-				                      { 'mData': 'periodicidad' 
+				                      { 'mData': 'periodicidad' ,  'mRender': function (val, type, row) {
+				                          return val == 'D' ? "Diaria" : (val == 'M' ? "Mensual": "Anual");
+				                      	}
 				                      },
-				                      { 'mData': 'valorPrevisto' 
-				                      }]
+				                      { 'mData': 'valorPrevisto', 'mRender': $.fn.dataTable.render.number( ',', '.', 0, '$' )   
+				                      }
+				                      ]
 				    	} );
+	     				
+	     				$('#tablaGastosPresupuesto tbody').on( 'click', 'tr', function () {
+	     					cargarModalItemPresupuesto($(this).find("input").val());
+	     					$("#modPresupuestoModal").modal("show");
+	     				} );
+	     				
+	     				$('#tablaIngresosPresupuesto').dataTable( {
+					        "bProcessing": true,
+					        "bServerSide": false,
+					        "bJQueryUI": true,
+					        "sAjaxSource": "<c:url value='/protected/presupuesto/lstIngresosPresupuesto/'/>",
+						        'aoColumns': [
+					                      { 'mData': 'concepto' , 'sClass' : 'left',
+					             			"mRender": function ( data, type, full ) {
+					             		        return data + "<input type='hidden' value='" + full.id + "' />";
+					             		      }
+					                      },
+					                      { 'mData': 'periodicidad' ,  'mRender': function (val, type, row) {
+					                          return val == 'D' ? "Diaria" : (val == 'M' ? "Mensual": "Anual");
+					                      	}
+					                      },
+					                      { 'mData': 'valorPrevisto', 'mRender': $.fn.dataTable.render.number( ',', '.', 0, '$' )   
+					                      }
+					                      ]
+					    	} );
+		     				
+		     				$('#tablaIngresosPresupuesto tbody').on( 'dblclick', 'tr', function () {
+		     					cargarModalItemPresupuesto($(this).find("input").val());
+		     					$("#modPresupuestoModal").modal("show");
+		     				} );
+
 				});
+				
+				function cargarModalItemPresupuesto(item) {
+					var url = "<c:url value='/protected/presupuesto/ver_item/'/>" + item;
+					
+					$.ajax({
+						type : "GET",
+						url : url,
+						contentType : 'application/json; charset=utf-8',
+						dataType : "json",
+						success : function(objResponse) {
+								$("#modPresupuestoModal").find("#id").val(objResponse.id);
+				        		$("#modPresupuestoModal").find("#concepto").val(objResponse.concepto);
+				        		$("#modPresupuestoModal").find("#periodicidad").val(objResponse.periodicidad);
+				        		$("#modPresupuestoModal").find("#valorPrevisto").val(objResponse.valorPrevisto);
+				        		if(objResponse.tipoItem == 'G'){
+				        			$("#modPresupuestoModal").find("#esGasto").attr("checked","checked");
+				        		} else {
+				        			$("#modPresupuestoModal").find("#esIngreso").attr("checked","checked");
+				        		}
+						},
+						error : function(objRequest) {
+							alert("error al cargar item de presupuesto");
+						}
+					});
+				}
+
+				
+				
 			</script>

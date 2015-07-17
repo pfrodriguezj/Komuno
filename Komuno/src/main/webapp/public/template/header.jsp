@@ -24,7 +24,11 @@
 		                            <spring:message code='menu.copropiedad'/>
 		                        </a>
 	                        </li>
-	                        <li><a href="#"><spring:message code='menu.consejos'/></a></li>
+	                        <li>
+   		                        <a href='<c:url value="/protected/copropiedades/ver_consejos/"/>' title='Consejos y comit&eacute;s'>
+		                            <spring:message code='menu.consejos'/>
+		                        </a>
+	                        </li>
 	                        <li><a href="#"><spring:message code='menu.servicios'/></a></li>
 	                        <li><a href="#"><spring:message code='menu.proyectos'/></a></li>
                         </ul>
@@ -36,8 +40,16 @@
           					<span class="caret"></span>
 				        </a>
 				        <ul id="menuComunidad" class="dropdown-menu" aria-labelledby="menu_comunidad">
-				        	 <li><a href="#"><spring:message code='menu.unidades'/></a></li>
-				        	 <li><a href="#"><spring:message code='menu.personas'/></a></li>
+				        	 <li>
+				        	 	<a href='<c:url value="/protected/copropiedades/ver_unidades"/>' title='Unidades'>
+				        	 		<spring:message code='menu.unidades'/>
+				        	 	</a>
+			        	 	 </li>
+				        	 <li>
+				        	 	<a href='<c:url value="/protected/persona/personas_page"/>' title='Personas'>
+				        	 		<spring:message code='menu.personas'/>
+				        	 	</a>
+				        	 </li>
 				        	 <li><a href="#"><spring:message code='menu.vehiculos'/></a></li>
 				        	 <li><a href="#"><spring:message code='menu.mascotas'/></a></li>
 				       	</ul>

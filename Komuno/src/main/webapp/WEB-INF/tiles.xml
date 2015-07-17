@@ -28,6 +28,15 @@
 	<definition name="presupuesto" extends="master.page">
         <put-attribute name="body" value="/protected/presupuesto.jsp"/>
     </definition>
+	<definition name="unidades" extends="master.page">
+        <put-attribute name="body" value="/protected/unidades.jsp"/>
+    </definition>
+	<definition name="consejos" extends="master.page">
+        <put-attribute name="body" value="/protected/consejos.jsp"/>
+    </definition>
+	<definition name="personas" extends="master.page">
+        <put-attribute name="body" value="/protected/personas.jsp"/>
+    </definition>
     
 
 </tiles-definitions>

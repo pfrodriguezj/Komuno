@@ -92,5 +92,14 @@ public class CopropiedadesController {
         return new ModelAndView("copropiedad","model",model);
     }
 	
+	@RequestMapping(value = "/ver_unidades", method = RequestMethod.GET)
+    public ModelAndView verUnidades(ModelMap model) {
+        return new ModelAndView("unidades","model",model);
+    }
+
+	@RequestMapping(value = "/ver_consejos", method = RequestMethod.GET)
+    public ModelAndView verConsejos(ModelMap model) {
+        return new ModelAndView("consejos","model",model);
+    }
 
 }

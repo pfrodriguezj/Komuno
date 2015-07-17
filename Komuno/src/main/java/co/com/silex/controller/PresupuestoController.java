@@ -48,14 +48,14 @@ public class PresupuestoController {
 	@Autowired
 	CopropiedadRepository copropiedadRepo;
 	
-	@RequestMapping(value="/lst",  method = RequestMethod.GET)
-    public @ResponseBody String copropiedadesLst(HttpSession session) {
+	@RequestMapping(value="/lstGastosPresupuesto",  method = RequestMethod.GET)
+    public @ResponseBody String presupestoGastosLst(HttpSession session) {
 		
 		CopropiedadDto cDto = (CopropiedadDto)session.getAttribute("copropiedad");
 		
 		String response = "";
 		
-		List<ItemPresupuesto> itemsPresupuesto = itemPresupuestoRepo.findAllByCopropiedadId(cDto.getId());
+		List<ItemPresupuesto> itemsPresupuesto = itemPresupuestoRepo.findAllByCopropiedadIdAndTipoItem(cDto.getId(), "G");
 		if(itemsPresupuesto != null && itemsPresupuesto.size() > 0){
 			try {
 				String json = new ObjectMapper().writeValueAsString(itemsPresupuesto);
@@ -68,7 +68,28 @@ public class PresupuestoController {
 		}
         return response;
     }
-	
+
+	@RequestMapping(value="/lstIngresosPresupuesto",  method = RequestMethod.GET)
+    public @ResponseBody String presupestoIngresosLst(HttpSession session) {
+		
+		CopropiedadDto cDto = (CopropiedadDto)session.getAttribute("copropiedad");
+		
+		String response = "";
+		
+		List<ItemPresupuesto> itemsPresupuesto = itemPresupuestoRepo.findAllByCopropiedadIdAndTipoItem(cDto.getId(), "I");
+		if(itemsPresupuesto != null && itemsPresupuesto.size() > 0){
+			try {
+				String json = new ObjectMapper().writeValueAsString(itemsPresupuesto);
+				response ="{\"aaData\":" + json + "}";
+			} catch (Exception e) {
+				response ="{\"aaData\":" + response + "}";
+			}
+		} else {
+			response= "{\"aaData\":\"\"}";
+		}
+        return response;
+    }
+
 	@RequestMapping(value = "/ver_presupuesto", method = RequestMethod.GET)
     public ModelAndView verPresupuesto(ModelMap model, HttpSession session) {
 		CopropiedadDto cDto =(CopropiedadDto)session.getAttribute("copropiedad");
@@ -110,7 +131,6 @@ public class PresupuestoController {
 	@RequestMapping(value="/save",  method = RequestMethod.POST)
     public ModelAndView saveItemPresupuesto(ModelMap model, HttpSession session, @ModelAttribute("itemPresupuesto") ItemPresupuesto nuevoItem) {
 		
-		ItemPresupuesto ip = nuevoItem;
 		CopropiedadDto cDto = (CopropiedadDto)session.getAttribute("copropiedad");
 		
 
@@ -120,5 +140,24 @@ public class PresupuestoController {
 		return verPresupuesto(model, session);
     }
 
+
+	@RequestMapping(value="/ver_item/{itemId}",  method = RequestMethod.GET)
+    public @ResponseBody String verItem(HttpSession session,  @PathVariable Long itemId) {
+		
+		String response = "";
+		
+		ItemPresupuesto ip = itemPresupuestoRepo.findOne(itemId);
+		if(ip != null){
+			try {
+				String json = new ObjectMapper().writeValueAsString(ip);
+				response =json;
+			} catch (Exception e) {
+				response = "";
+			}
+		} else {
+			response= "";
+		}
+        return response;
+    }
 
 }
