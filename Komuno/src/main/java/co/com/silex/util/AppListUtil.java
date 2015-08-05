@@ -28,10 +28,18 @@ public class AppListUtil {
 		listaProcesos.add(new ListaProceso("periodoUnidad", "D", "DIA"));
 		
 		listaProcesos.add(new ListaProceso("pagoEstado", "E", "EN ESPERA"));
-		listaProcesos.add(new ListaProceso("pagoPagoEstado", "F", "FACTURADO"));
-		listaProcesos.add(new ListaProceso("pagoPagoEstado", "P", "PAGADO"));
-		listaProcesos.add(new ListaProceso("pagoPagoEstado", "A", "ANULADO"));
-		listaProcesos.add(new ListaProceso("pagoPagoEstado", "S", "SUSPENDIDO"));
+		listaProcesos.add(new ListaProceso("pagoEstado", "F", "FACTURADO"));
+		listaProcesos.add(new ListaProceso("pagoEstado", "P", "PAGADO"));
+		listaProcesos.add(new ListaProceso("pagoEstado", "A", "ANULADO"));
+		listaProcesos.add(new ListaProceso("pagoEstado", "S", "SUSPENDIDO"));
+		
+		listaProcesos.add(new ListaProceso("tipoDocumento", "1", "CEDULA"));
+		listaProcesos.add(new ListaProceso("tipoDocumento", "2", "REGISTRO CIVIL"));
+		listaProcesos.add(new ListaProceso("tipoDocumento", "3", "TARJETA DE IDENTIDAD"));
+		listaProcesos.add(new ListaProceso("tipoDocumento", "4", "NIT"));
+		listaProcesos.add(new ListaProceso("tipoDocumento", "5", "NUIP"));
+		listaProcesos.add(new ListaProceso("tipoDocumento", "6", "CEDULA DE EXTRANJERIA"));
+
 		
 		init = true;
 	}

@@ -21,7 +21,7 @@
 				</div>
 			</div>
 			<div class="col-lg-12">
-	        	<button type="button" class="btn btn-success col-lg-4" data-toggle="modal" data-target="#modPresupuestoModal">Nuevo &iacute;tem de presupuesto</button>
+	        	<button id="nuevoItemPresupuestal" type="button" class="btn btn-success col-lg-4" >Nuevo &iacute;tem de presupuesto</button>
 	        </div>
 	</div>
 </div>
@@ -110,7 +110,7 @@
     
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modPresupuestoModalLabel">Crear Item Presupuestal</h4>
+        <h4 class="modal-title" id="modPresupuestoModalLabel">Item Presupuestal</h4>
       </div>
       <div class="modal-body">
 			<div class="well form-inline">
@@ -213,32 +213,48 @@
 		     					cargarModalItemPresupuesto($(this).find("input").val());
 		     					$("#modPresupuestoModal").modal("show");
 		     				} );
+		     				
+		     				$('#nuevoItemPresupuestal').on( 'click', function () {
+		     					cargarModalItemPresupuesto(null);
+		     					$("#modPresupuestoModal").modal("show");
+		     				} );
 
 				});
 				
 				function cargarModalItemPresupuesto(item) {
-					var url = "<c:url value='/protected/presupuesto/ver_item/'/>" + item;
 					
-					$.ajax({
-						type : "GET",
-						url : url,
-						contentType : 'application/json; charset=utf-8',
-						dataType : "json",
-						success : function(objResponse) {
-								$("#modPresupuestoModal").find("#id").val(objResponse.id);
-				        		$("#modPresupuestoModal").find("#concepto").val(objResponse.concepto);
-				        		$("#modPresupuestoModal").find("#periodicidad").val(objResponse.periodicidad);
-				        		$("#modPresupuestoModal").find("#valorPrevisto").val(objResponse.valorPrevisto);
-				        		if(objResponse.tipoItem == 'G'){
-				        			$("#modPresupuestoModal").find("#esGasto").attr("checked","checked");
-				        		} else {
-				        			$("#modPresupuestoModal").find("#esIngreso").attr("checked","checked");
-				        		}
-						},
-						error : function(objRequest) {
-							alert("error al cargar item de presupuesto");
-						}
-					});
+					if(item != null){
+						var url = "<c:url value='/protected/presupuesto/ver_item/'/>" + item;
+					
+						$.ajax({
+							type : "GET",
+							url : url,
+							contentType : 'application/json; charset=utf-8',
+							dataType : "json",
+							success : function(objResponse) {
+									$("#modPresupuestoModal").find("#id").val(objResponse.id);
+					        		$("#modPresupuestoModal").find("#concepto").val(objResponse.concepto);
+					        		$("#modPresupuestoModal").find("#periodicidad").val(objResponse.periodicidad);
+					        		$("#modPresupuestoModal").find("#valorPrevisto").val(objResponse.valorPrevisto);
+					        		if(objResponse.tipoItem == 'G'){
+					        			$("#modPresupuestoModal").find("#esGasto").attr("checked","checked");
+					        		} else {
+					        			$("#modPresupuestoModal").find("#esIngreso").attr("checked","checked");
+					        		}
+							},
+							error : function(objRequest) {
+								alert("error al cargar item de presupuesto");
+							}
+						});
+					} else {
+						
+						$("#modPresupuestoModal").find("#id").val("");
+		        		$("#modPresupuestoModal").find("#concepto").val("");
+		        		$("#modPresupuestoModal").find("#periodicidad").val("");
+		        		$("#modPresupuestoModal").find("#valorPrevisto").val("");
+	        			$("#modPresupuestoModal").find("#esGasto").attr("checked","checked");
+					}
+					
 				}
 
 				

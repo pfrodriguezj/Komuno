@@ -24,6 +24,7 @@ import co.com.silex.model.repositories.CopropiedadRepository;
 import co.com.silex.model.repositories.ItemPresupuestoRepository;
 import co.com.silex.model.repositories.UnidadResidencialRepository;
 import co.com.silex.security.SilexUserDetails;
+import co.com.silex.util.AppListUtil;
 
 @Controller
 @RequestMapping(value = "/protected/copropiedades")

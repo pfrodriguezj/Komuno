@@ -16,5 +16,8 @@ public interface PersonaRepository extends CrudRepository<Persona, Long>{
 			+ "AND ur.copropiedad_id = ?1"
 			+ "", nativeQuery = true)
 	List<Persona> findAllPersonasByCopropiedad(Long copropiedadId);
+	
+	Persona findByTipoDocumentoAndDocumento(Long tipoDocumento, String documento);
+	
 
 }

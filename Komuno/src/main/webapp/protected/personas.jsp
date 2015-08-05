@@ -2,19 +2,18 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<div class="row">
-	<div class="well form col-lg-12">
-	        <blockquote class="col-lg-6 form-title">
-	            <strong class="col-lg-12 form-title" style="display: inline;">
-	                <spring:message code="header.personas.directorio"/>
-	            </strong>
-	        </blockquote>
-	</div>
-</div>
+
 
         <div id="personasContenedor form-inline col-lg-12">
 	        <div class="row well">
-	        
+   	                <blockquote class="col-lg-10 form-title">
+            			<strong class="col-lg-12 form-title" style="display: inline;">
+	                		<spring:message code="header.personas.directorio"/>
+            			</strong>
+    			    </blockquote>
+	        </div>
+	
+			<div class="row">	        
 		        <!-- DataTable -->
 		        <div class="col-lg-12 text-right" style="overflow-x: auto;">
 		          <table id="tablaPersonas"
@@ -60,7 +59,7 @@
 						</div>
 						<label for="tipoDocumento" class="col-lg-4">TIPO DOCUMENTO</label>
 						<div class="col-lg-8">
-							<form:select path="tipoDocumento" items="${model.tipoDocumento}" class="form-control"/>
+							<form:select path="tipoDocumento" items="${model.listTipoDocumento}" class="form-control"/>
 						</div>
 						<label for="documento" class="col-lg-4 control-label">DOCUMENTO</label>
 						<div class="col-lg-8">
@@ -139,25 +138,41 @@
 	     				} );
 				});
 				
+ 				$('#nuevoPersona').on( 'click', function () {
+ 					cargarModalPersona(null);
+ 					$("#modPersonaModal").modal("show");
+ 				} );
+
+				
 				function cargarModalPersona(id) {
-					var url = "<c:url value='/protected/persona/ver/'/>" + id;
 					
-					$.ajax({
-						type : "GET",
-						url : url,
-						contentType : 'application/json; charset=utf-8',
-						dataType : "json",
-						success : function(objResponse) {
-								$("#modPersonaModal").find("#id").val(objResponse.id);
-				        		$("#modPersonaModal").find("#nombre").val(objResponse.nombre);
-				        		$("#modPersonaModal").find("#tipoDocumento").val(objResponse.tipoDocumento);
-				        		$("#modPersonaModal").find("#documento").val(objResponse.documento);
-				        		$("#modPersonaModal").find("#telefono").val(objResponse.telefono);
-				        		$("#modPersonaModal").find("#email").val(objResponse.email);
-						},
-						error : function(objRequest) {
-							alert("error al cargar datos de persona");
-						}
-					});
+					if( id != null){
+						var url = "<c:url value='/protected/persona/ver/'/>" + id;
+						
+						$.ajax({
+							type : "GET",
+							url : url,
+							contentType : 'application/json; charset=utf-8',
+							dataType : "json",
+							success : function(objResponse) {
+									$("#modPersonaModal").find("#id").val(objResponse.id);
+					        		$("#modPersonaModal").find("#nombre").val(objResponse.nombre);
+					        		$("#modPersonaModal").find("#tipoDocumento").val(objResponse.tipoDocumento);
+					        		$("#modPersonaModal").find("#documento").val(objResponse.documento);
+					        		$("#modPersonaModal").find("#telefono").val(objResponse.telefono);
+					        		$("#modPersonaModal").find("#email").val(objResponse.email);
+							},
+							error : function(objRequest) {
+								alert("error al cargar datos de persona");
+							}
+						});
+					} else {
+						$("#modPersonaModal").find("#id").val("");
+		        		$("#modPersonaModal").find("#nombre").val("");
+		        		$("#modPersonaModal").find("#tipoDocumento").val("");
+		        		$("#modPersonaModal").find("#documento").val("");
+		        		$("#modPersonaModal").find("#telefono").val("");
+		        		$("#modPersonaModal").find("#email").val("");
+					}
 				}
 			</script>

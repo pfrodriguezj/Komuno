@@ -31,6 +31,9 @@
 	                        </li>
 	                        <li><a href="#"><spring:message code='menu.servicios'/></a></li>
 	                        <li><a href="#"><spring:message code='menu.proyectos'/></a></li>
+	                        <li><a href="#"><spring:message code='menu.mantenimiento'/></a></li>
+	                        <li><a href="#"><spring:message code='menu.proveedores'/></a></li>
+	                        <li><a href="#"><spring:message code='menu.polizas'/></a></li>
                         </ul>
                     </li>
 
